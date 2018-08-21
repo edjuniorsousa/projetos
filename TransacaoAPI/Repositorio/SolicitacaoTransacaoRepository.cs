@@ -23,6 +23,10 @@ namespace TransacaoAPI.Repositorio
         {
             return _contexto.SolicitacaoAntecipacao.FirstOrDefault(u => u.Id == id);
         }
+        public SolicitacaoAntecipacao BuscaPorTransacao(int id)
+        {
+            return _contexto.SolicitacaoAntecipacao.FirstOrDefault(u => u.TransacaoId == id);
+        }
 
         public IEnumerable<SolicitacaoAntecipacao> GetAll()
         {
@@ -40,10 +44,6 @@ namespace TransacaoAPI.Repositorio
         {
             _contexto.SolicitacaoAntecipacao.Update(solicitacao);
             _contexto.SaveChanges();
-        }
-        public IEnumerable<SolicitacaoAntecipacao> BuscaPorPeriodo(DateTime dataInicial, DateTime dataFinal)
-        {
-            return _contexto.SolicitacaoAntecipacao.ToList().Where(s => s.DataSolicitacao >= dataInicial && s.DataSolicitacao < dataFinal).ToList();
         }
 
     }

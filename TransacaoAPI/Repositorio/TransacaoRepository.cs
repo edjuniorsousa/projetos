@@ -29,6 +29,11 @@ namespace TransacaoAPI.Repositorio
             return _contexto.Transacao.Include(p => p.SolicitacoesAntecipacao).Where(p => p.Id==id).FirstOrDefault();
         }
 
+        public Transacao Busca(int id)
+        {
+            return _contexto.Transacao.FirstOrDefault(p => p.Id==id);
+        }
+
         public IEnumerable<Transacao> GetAll()
 
         {
@@ -42,7 +47,8 @@ namespace TransacaoAPI.Repositorio
 
         public void Update(Transacao trans)
         {
-            throw new NotImplementedException();
+            _contexto.Transacao.Update(trans);
+            _contexto.SaveChanges();
         }
     }
 }

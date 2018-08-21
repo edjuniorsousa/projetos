@@ -29,10 +29,10 @@ namespace TransacaoAPI.Controllers
 
 
         }
-        [HttpGet("{id}", Name = "GetTransacao")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var resultado = _transacaoRepository.Find(id);
+            var resultado = _transacaoRepository.Busca(id);
             if (resultado == null)
                 return NotFound();
             return new ObjectResult(resultado);

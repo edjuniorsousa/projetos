@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TransacaoAPI.Repositorio;
 using TransacaoAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace TransacaoAPI.Controllers
 {
@@ -25,9 +26,6 @@ namespace TransacaoAPI.Controllers
         {
 
             var resultado = _solicitacaoRepository.GetAll();
-
-            //foreach (var solicita in resultado)
-            //    solicita..ValorSolicitacaoAntecipacao = transacao.CalculaValorSolicitacaoAntecipacao(transacao.ValorRepasse, transacao.NumeroParcelas);
             return resultado;
 
 
@@ -47,24 +45,28 @@ namespace TransacaoAPI.Controllers
                 return StatusCode(500);
             }
         }
-        [HttpPost]
-        public IActionResult Post([FromBody] int id)
+
+        [HttpPost("{id}")]
+        //[Route("api/[Controller]/{id}")]        
+        public ActionResult Post(int id)
         {
             try
             {
                 //var trans = new TransacaoRepository();
-                var resultado = _transacaoRepository.Find(1);
+                var resultado = _transacaoRepository.Find(id);
 
                 if (resultado.SolicitacoesAntecipacao.Count == 0)
                 {
                     var valorSolicitacaoAntecipacao = resultado.CalculaValorSolicitacaoAntecipacao(resultado.ValorRepasse, resultado.NumeroParcelas);
                     SolicitacaoAntecipacao solicita = new SolicitacaoAntecipacao()
                     {
-                        DataSolicitacao = DateTime.Now,
+                        DataSolicitacao = DateTime.Today,
                         ValorTotalTransacao = resultado.ValorTransacao,
                         ValorTotalRepasse = (double)resultado.ValorRepasse - valorSolicitacaoAntecipacao,
                         Status = "A", //em análise
+                        DataAnaliseInicio = DateTime.Now,
                         TransacaoId = resultado.Id
+
                     };
                     //solicitacao = solicita;
 
@@ -87,22 +89,76 @@ namespace TransacaoAPI.Controllers
         {
             try
             {
-                var resultado = _solicitacaoRepository.BuscaPorPeriodo(dataInicial, dataFinal);
-                if (resultado == null)                    
+                var resultado = _solicitacaoRepository.GetAll().ToList();
+                if (resultado.Count == 0)
                     return NotFound(new
                     {
                         mensagem = string.Format("Nenhuma solicitação encontrada no intervalo de {0} a {1}",
                             dataInicial.ToShortDateString(),
                             dataFinal.ToShortDateString())
                     });
-               
-                return new ObjectResult(resultado);
+                return new ObjectResult(resultado.Where(p => p.DataSolicitacao >= dataInicial && p.DataSolicitacao <= dataFinal).ToList());
             }
             catch
             {
                 return StatusCode(500);
             }
         }
+        [HttpPut("{id}")]
+        public IActionResult Aprovar(int id)
+        {
+            try
+            {
+                var resultadoSolicitacao = _solicitacaoRepository.BuscaPorTransacao(id);
+                var resultadoTransacao = _transacaoRepository.Busca(id);
+                if (resultadoSolicitacao == null)
+                    return NotFound();
+                else
+                {
+                    resultadoSolicitacao.DataAnaliseFim = DateTime.Now;
+                    resultadoSolicitacao.Status = "F";//Finalizado
+                    resultadoSolicitacao.Resultado = "Aprovado";
+
+                    _solicitacaoRepository.Update(resultadoSolicitacao);
+                }
+                if (resultadoTransacao == null)
+                    return NotFound();
+                else
+                {
+                    resultadoTransacao.DataRepasse = DateTime.Now;
+                    resultadoTransacao.Confirmacao = "Aprovado";
+                    _transacaoRepository.Update(resultadoTransacao);
+                }
+                return new OkObjectResult(new { mensagem = "Solicitacao aprovada" });
+
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+
+        }
+        [HttpGet]
+        [Route("api/[Controller]/{Type:string}")]
+        public IActionResult ListarSolicitacaoAndamento(string Status)
+        {
+            try
+            {
+                var resultado = _solicitacaoRepository.GetAll().ToList();
+                if (resultado.Count == 0)
+                    return NotFound(new
+                    {
+                        mensagem = string.Format("Nenhuma solicitação em andamento encontrada")
+                    }); 
+                return new ObjectResult(resultado.Where(p => p.Status== Status).ToList());
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
 
 
     }

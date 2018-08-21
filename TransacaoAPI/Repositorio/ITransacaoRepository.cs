@@ -11,6 +11,7 @@ namespace TransacaoAPI.Repositorio
         void Add(Transacao trans);
         IEnumerable<Transacao> GetAll();
         Transacao Find(int id);
+        Transacao Busca(int id);
         void Remove(int id);
         void Update(Transacao trans);
     }

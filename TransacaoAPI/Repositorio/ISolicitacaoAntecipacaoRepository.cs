@@ -14,6 +14,7 @@ namespace TransacaoAPI.Repositorio
         SolicitacaoAntecipacao Find(int id);
         void Remove(int id);
         void Update(SolicitacaoAntecipacao solicitacao);
-        IEnumerable<SolicitacaoAntecipacao> BuscaPorPeriodo(DateTime dataInicial, DateTime dataFinal);
+        SolicitacaoAntecipacao BuscaPorTransacao(int id);
+        
     }
 }
