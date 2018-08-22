@@ -30,7 +30,7 @@ namespace TransacaoAPI.Controllers
 
 
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]        
         public IActionResult Get(int id)
         {
             try
@@ -46,8 +46,7 @@ namespace TransacaoAPI.Controllers
             }
         }
 
-        [HttpPost("{id}")]
-        //[Route("api/[Controller]/{id}")]        
+        [HttpPost("{id}")]//informe o codigo da transação que deseja solicitar a antecipação       
         public ActionResult Post(int id)
         {
             try
@@ -104,13 +103,13 @@ namespace TransacaoAPI.Controllers
                 return StatusCode(500);
             }
         }
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//Informe o codigo da solicitação que deseja aprovar a antecipação
         public IActionResult Aprovar(int id)
         {
             try
             {
-                var resultadoSolicitacao = _solicitacaoRepository.BuscaPorTransacao(id);
-                var resultadoTransacao = _transacaoRepository.Busca(id);
+                var resultadoSolicitacao = _solicitacaoRepository.Find(id);
+                var resultadoTransacao = _transacaoRepository.Busca(resultadoSolicitacao.TransacaoId);
                 if (resultadoSolicitacao == null)
                     return NotFound();
                 else
@@ -139,19 +138,28 @@ namespace TransacaoAPI.Controllers
             }
 
         }
-        [HttpGet]
-        [Route("api/[Controller]/{Type:string}")]
+        //[Route("api/[Controller/{Status:string}]")]
+        [HttpGet("{Status}")] //Informe "A" status em andamento       
         public IActionResult ListarSolicitacaoAndamento(string Status)
         {
             try
             {
-                var resultado = _solicitacaoRepository.GetAll().ToList();
+                var resultado = _solicitacaoRepository.GetAll().Where(p => p.Status==Status.ToUpper()).ToList();
+                if (resultado.Count > 0)
+                {
+                    if (resultado[0].Status != "A")
+                        return NotFound(new
+                        {
+                            mensagem = string.Format("Nenhuma solicitação em andamento encontrada")
+                        });
+                }
                 if (resultado.Count == 0)
                     return NotFound(new
                     {
-                        mensagem = string.Format("Nenhuma solicitação em andamento encontrada")
-                    }); 
-                return new ObjectResult(resultado.Where(p => p.Status== Status).ToList());
+                        mensagem = string.Format("Nenhuma solicitação encontrada")
+                    });
+
+                return new ObjectResult(resultado);
             }
             catch
             {
