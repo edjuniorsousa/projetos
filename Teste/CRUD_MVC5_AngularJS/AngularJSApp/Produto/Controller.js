@@ -49,7 +49,7 @@
             $scope.descricao = '',
             $scope.quantidade = '',
             $scope.dataCadastro = '',
-            $scope; valor = '';
+            $scope.valor = '';
     }
     //Método responsavel por editar produto pelo Id:
     $scope.atualizarProdutoPorId = function (produto) {
@@ -63,7 +63,7 @@
     }
 
     //Método responsável por editar dados do produto:
-    $scope.atualizarProduto - function () {
+    $scope.atualizarProduto = function () {
         var produto = {
             produtoId: $scope.AtualizadoProdutoId,
             descricao: $scope.AtualizadoDescricao,
@@ -105,6 +105,21 @@
         $scope.AtualizadoDescricao = produto.descricao;
     }
 
+    //Método responsavel por resgatar os dados do produto pelo Id para compra:
+    $scope.comprarProdutoPorId = function (produto) {
+        $scope.AtualizadoProdutoId = produto.produtoId;
+        $scope.AtualizadoDescricao = produto.descricao;
+        $scope.AtualizadoValor = produto.valor;
+        $scope.AtualizadoQuantidade = produto.quantidade;
+        
+    }
+
+    //Método responsavel por Limpar os Dados depois de comprar produto:
+    $scope.limparDadosCompra = function () {
+        $scope.quantidade = '';
+    }
+    
+
 
     //Método responsável por excluir o produto pelo Id:
     $scope.excluirProduto = function (AtualizadoProdutoId) {
@@ -122,4 +137,5 @@
             }
         });
     }
+
 });

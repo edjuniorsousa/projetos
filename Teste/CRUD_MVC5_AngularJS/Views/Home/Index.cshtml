@@ -19,6 +19,7 @@
                     <th>Quantidade</th>
                     <th>Data Cadastro</th>
                     <th>Valor</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,15 +29,47 @@
                     <td>{{p.quantidade}}</td>
                     <td>{{p.dataCadastro}}</td>
                     <td>{{p.valor}}</td>
-                    <td style="width:200px">
+                    <td style="width:300px">
                         <a href="#" class="btn btn-info" data-target="#AtualizarProduto" data-toggle="modal" ng-click="atualizarProdutoPorId(p)">Editar</a>
                         <a href="#" class="btn btn-danger" data-target="#ExcluirProduto" data-toggle="modal" ng-click="excluirProdutoPorId(p)">Excluir</a>
+                        <a href="#" class="btn btn-danger" data-target="#ComprarProduto" data-toggle="modal" ng-click="comprarProdutoPorId(p)">Comprar</a>
 
                     </td>
                 </tr>
             </tbody>
         </table>
         @*</div>*@
+        @* INÍCIO MODAL - COMPRAR PRODUTO *@
+        <div class="modal" role="dialog" id="ComprarProduto">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Comprar produto</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p>Id do produto : {{AtualizadoProdutoId}}</p>
+                            <p>Descrição : {{AtualizadoDescricao}}</p>
+                            <p>Preço por unidade : {{AtualizadoValor}}</p>
+                            <p>Quantidade no estoque : {{AtualizadoQuantidade}}</p>
+                            <div class="form-group">
+                                <input class="form-control" type="number" name="nome" ng-model="quantidade" placeholder="Informe a quantidade" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="comprarProduto(AtualizadoProdutoId)">Adicionar ao carrinho</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDadosCompra">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @* FIM MODAL - COMPRAR PRODUTO *@
+
+
+
 
         @* INÍCIO MODAL - ADICIONAR PRODUTO *@
         <div class="modal" id="AdicionarProduto" role="dialog">
@@ -88,8 +121,8 @@
                                 <input class="form-control" readonly="readonly" name="produtoId" ng-model="AtualizadoProdutoId" type="hidden" placeholder="Produto Id" />
                             </div>
                             <div class="form-group">
-                                <label class="text-info"> Descrição</label>
-                                <input class="form-control" name="descricao" ng-model="AtualizadoDescricao" type="text" placeholder="Descrição" />
+                                <label class="text-info"> descrição</label>
+                                <input class="form-control" name="Descricao" ng-model="AtualizadoDescricao" type="text" placeholder="Descrição" />
                             </div>
                             <div class="form-group">
                                 <label class="text-info"> Quantidade</label>
@@ -107,7 +140,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btnAlterar" data-dismiss="modal" ng-click="atualizarProduto()">Atualizar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="limparDadosAtualizados()">Fechar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDadosAtualizados()">Fechar</button>
                     </div>
                 </div>
             </div>
