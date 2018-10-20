@@ -1,0 +1,150 @@
+﻿<div class="container" ng-controller="produtoCtrl">
+    <div class="panel panel-info">
+
+        <div class="panel-heading">Listagem de produtos</div>
+
+
+        <div class="panel-body">
+            <button type="button" class="btn btn-info" data-target="#AdicionarProduto" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+
+
+        <table class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Data Cadastro</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in Produtos">
+                    <td>{{p.produtoId}}</td>
+                    <td>{{p.descricao}}</td>
+                    <td>{{p.quantidade}}</td>
+                    <td>{{p.dataCadastro}}</td>
+                    <td>{{p.valor}}</td>
+                    <td style="width:200px">
+                        <a href="#" class="btn btn-info" data-target="#AtualizarProduto" data-toggle="modal" ng-click="atualizarProdutoPorId(p)">Editar</a>
+                        <a href="#" class="btn btn-danger" data-target="#ExcluirProduto" data-toggle="modal" ng-click="excluirProdutoPorId(p)">Excluir</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @*</div>*@
+
+        @* INÍCIO MODAL - ADICIONAR PRODUTO *@
+        <div class="modal" id="AdicionarProduto" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Adicionar produto</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="AdicionarNovoProdutoForm">
+                            <div class="form-group">
+                                <input class="form-control" readonly="readonly" name="ProdutoId" type="hidden" placeholder="Id produto" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="nome" ng-model="descricao" placeholder="Descrição" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="number" name="nome" ng-model="quantidade" placeholder="Quantidade" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="date" name="nome" ng-model="dataCadastro" placeholder="Data cadastro" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="number" name="nome" ng-model="valor" placeholder="Preço" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-click="adicionarProduto()">Adicionar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* FIM MODAL - ADICIONAR PRODUTO *@
+
+        @* INÍCIO MODAL - ATUALIZAR PRODUTO *@
+        <div class="modal" id="AtualizarProduto" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Atualizar Produto</h3>
+                    </div>
+                    <div class="modal-body" style="margin-left: 20px">
+                        <form class="form-horizontal" name="AtualizarForm">
+                            <div class="form-group">
+                                <input class="form-control" readonly="readonly" name="produtoId" ng-model="AtualizadoProdutoId" type="hidden" placeholder="Produto Id" />
+                            </div>
+                            <div class="form-group">
+                                <label class="text-info"> Descrição</label>
+                                <input class="form-control" name="descricao" ng-model="AtualizadoDescricao" type="text" placeholder="Descrição" />
+                            </div>
+                            <div class="form-group">
+                                <label class="text-info"> Quantidade</label>
+                                <input class="form-control" name="quantidade" ng-model="AtualizadoQuantidade" type="number" placeholder="Quantidade" />
+                            </div>
+                            <div class="form-group">
+                                <label class="text-info"> Data Cadastro</label>
+                                <input class="form-control" name="dataCadastro" ng-model="AtualizadoDataCadastro" type="date" placeholder="Data Cadastro" />
+                            </div>
+                            <div class="form-group">
+                                <label class="text-info"> Valor</label>
+                                <input class="form-control" name="valor" ng-model="AtualizadoValor" type="number" placeholder="Preço" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAlterar" data-dismiss="modal" ng-click="atualizarProduto()">Atualizar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="limparDadosAtualizados()">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* FIM MODAL - ATUALIZAR PRODUTO *@
+
+        @* INÍCIO MODAL - EXCLUIR PRODUTO *@
+
+        <div class="modal" role="dialog" id="ExcluirProduto">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Você tem certeza que deseja excluir o produto?</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p>Id do produto : {{AtualizadoProdutoId}}</p>
+                            <p>Descrição : {{AtualizadoDescricao}}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="excluirProduto(AtualizadoProdutoId)">Excluir</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* FIM MODAL - EXCLUIR PRODUTO *@
+    </div>
+</div>
+@section scripts{
+    <script src="~/AngularJSApp/Produto/Module.js"></script>
+    <script src="~/AngularJSApp/Produto/Service.js"></script>
+    <script src="~/AngularJSApp/Produto/Controller.js"></script>
+}
+
+
+
+
