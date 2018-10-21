@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CRUD_MVC5_AngularJS.Models
+namespace CRUD_MVC_ANGULARJS.Models
 {
     using System;
     using System.Data.Entity;
@@ -24,8 +24,8 @@ namespace CRUD_MVC5_AngularJS.Models
         {
             throw new UnintentionalCodeFirstException();
         }
-		
-        //public DbSet<Compra> Compras { get; set; }
+    
+        public DbSet<Compra> Compras { get; set; }
         public DbSet<Produto> Produtoes { get; set; }
     }
 }

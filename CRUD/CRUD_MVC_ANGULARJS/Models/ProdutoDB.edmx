@@ -5,34 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ProdutosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!-- -->
-		<EntityType Name="Compra">
+        <EntityType Name="Compra">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="int" />
           <Property Name="idProduto" Type="int" />
           <Property Name="quantidade" Type="int" />
           <Property Name="dataVenda" Type="datetime" />
-          <Property Name="valorTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="valorTotal" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
-		
-		
-		
-		
-		<EntityType Name="Produto">
+        <EntityType Name="Produto">
           <Key>
             <PropertyRef Name="produtoId" />
           </Key>
           <Property Name="produtoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="descricao" Type="varchar" MaxLength="100" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
           <Property Name="quantidade" Type="int" />
           <Property Name="dataCadastro" Type="datetime" />
           <Property Name="valor" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityContainer Name="ProdutosModelStoreContainer">
-		  <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
-		
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -44,32 +39,25 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="Int32" />
           <Property Name="idProduto" Type="Int32" />
           <Property Name="quantidade" Type="Int32" />
           <Property Name="dataVenda" Type="DateTime" Precision="3" />
-          <Property Name="valorTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="valorTotal" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
-		
-		
-		
-		
-		
-		
-		<EntityType Name="Produto">
+        <EntityType Name="Produto">
           <Key>
             <PropertyRef Name="produtoId" />
           </Key>
           <Property Name="produtoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="quantidade" Type="Int32" />
           <Property Name="dataCadastro" Type="DateTime" Precision="3" />
           <Property Name="valor" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityContainer Name="ProdutosEntities" annotation:LazyLoadingEnabled="true">
-		  <EntitySet Name="Compras" EntityType="Self.Compra" />
-		  
-		  
+          <EntitySet Name="Compras" EntityType="Self.Compra" />
           <EntitySet Name="Produtoes" EntityType="Self.Produto" />
         </EntityContainer>
       </Schema>
@@ -78,11 +66,11 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProdutosModelStoreContainer" CdmEntityContainer="ProdutosEntities">
-		
           <EntitySetMapping Name="Compras">
             <EntityTypeMapping TypeName="ProdutosModel.Compra">
               <MappingFragment StoreEntitySet="Compra">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="idProduto" ColumnName="idProduto" />
                 <ScalarProperty Name="quantidade" ColumnName="quantidade" />
                 <ScalarProperty Name="dataVenda" ColumnName="dataVenda" />
@@ -90,10 +78,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-		  
-		  
-		  
-		  <EntitySetMapping Name="Produtoes">
+          <EntitySetMapping Name="Produtoes">
             <EntityTypeMapping TypeName="ProdutosModel.Produto">
               <MappingFragment StoreEntitySet="Produto">
                 <ScalarProperty Name="produtoId" ColumnName="produtoId" />

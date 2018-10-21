@@ -58,8 +58,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="adicionarCarrinho()">Adicionar ao carrinho</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDadosCompra">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="adicionarCarrinho(AtualizadoProdutoId,AtualizadoDescricao,AtualizadoValor,AtualizadoQuantidade,quantidadeComprada)">Adicionar ao carrinho</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Fechar</button>
                     </div>
                 </div>
             </div>
@@ -178,22 +178,30 @@
 
     <br />
     <br />
-    <table class="table table-bordered">
-        <thead style="background-color: burlywood;">
-            <tr>
-                <th>Descrição</th>
-                <th>Quantidade</th>
-                <th>Valor Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="c in Compras">
-                <td>{{c.descricao}}</td>
-                <td>{{c.quantidade}}</td>
-                <td>{{c.valorTotal}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-lg-5 jumbotron">
+        <h4>Carrinho de Compras</h4>
+        <table class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th>ProdutoId</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Quantidade comprada</th>
+                    <th>Valor Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="c in Compras" ng-if="c.AtualizadoProdutoId">
+                    <td>{{c.AtualizadoProdutoId}}</td>
+                    <td>{{c.AtualizadoDescricao}}</td>
+                    <td>{{c.AtualizadoValor}}</td>
+                    <td>{{c.quantidadeComprada}}</td>
+                    <td>{{c.ValorTotal}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="btnConcluirCompra" class="btn btn-info btnRodape" ng-click="adicionarCompra()">Concluir compra</button>
+    </div>
 
 
 
