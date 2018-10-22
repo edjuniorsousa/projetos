@@ -60,11 +60,13 @@ PRINT N'Creating [dbo].[Compra]...';
 
 GO
 CREATE TABLE [dbo].[Compra] (
-    [id]         INT             NOT NULL,
+    [id]         INT             IDENTITY (1, 1) NOT NULL,
+    [codigo]     VARCHAR (5)     NULL,
     [idProduto]  INT             NULL,
     [quantidade] INT             NULL,
     [dataVenda]  DATETIME        NULL,
-    [valorTotal] DECIMAL (10, 2) NULL
+    [valorTotal] DECIMAL (10, 2) NULL,
+    CONSTRAINT [PK_Compra] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
 
