@@ -28,7 +28,7 @@
                     <td>{{p.descricao}}</td>
                     <td>{{p.quantidade}}</td>
                     <td>{{p.dataCadastro}}</td>
-                    <td>{{p.valor}}</td>
+                    <td>{{p.valor | currency: 'R$'}}</td>
                     <td style="width:300px">
                         <a href="#" class="btn btn-info" data-target="#AtualizarProduto" data-toggle="modal" ng-click="atualizarProdutoPorId(p)">Editar</a>
                         <a href="#" class="btn btn-danger" data-target="#ExcluirProduto" data-toggle="modal" ng-click="excluirProdutoPorId(p)">Excluir</a>
@@ -128,10 +128,10 @@
                                 <label class="text-info"> Quantidade</label>
                                 <input class="form-control" name="quantidade" ng-model="AtualizadoQuantidade" type="number" placeholder="Quantidade" />
                             </div>
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <label class="text-info"> Data Cadastro</label>
                                 <input class="form-control" name="dataCadastro" ng-model="AtualizadoDataCadastro" type="date" placeholder="Data Cadastro" />
-                            </div>
+                            </div>*@
                             <div class="form-group">
                                 <label class="text-info"> Valor</label>
                                 <input class="form-control" name="valor" ng-model="AtualizadoValor" type="number" placeholder="Preço" />
@@ -180,7 +180,7 @@
     <br />
     <div class="col-lg-5 jumbotron">
         <h4>Carrinho de Compras</h4>
-        <table class="table table-bordered">
+        <table class="table table-condensed">
             <thead style="background-color: burlywood;">
                 <tr>
                     <th>ProdutoId</th>
@@ -188,19 +188,26 @@
                     <th>Valor</th>
                     <th>Quantidade comprada</th>
                     <th>Valor Total</th>
+                    <td><div id="teste" style="display:none"></div></td>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="c in Compras" ng-if="c.AtualizadoProdutoId">
                     <td>{{c.AtualizadoProdutoId}}</td>
                     <td>{{c.AtualizadoDescricao}}</td>
-                    <td>{{c.AtualizadoValor}}</td>
+                    <td>{{c.AtualizadoValor | currency: 'R$'}}</td>
                     <td>{{c.quantidadeComprada}}</td>
-                    <td>{{c.ValorTotal}}</td>
+                    <td>{{c.ValorTotal | currency: 'R$'}}</td>
+                    <td><div id="teste" style="display:none">{{c.AtualizadoQuantidade}}</div></td>
                 </tr>
             </tbody>
         </table>
-        <button id="btnConcluirCompra" class="btn btn-info btnRodape" ng-click="adicionarCompra()">Concluir compra</button>
+        <button id="btnConcluirCompra" class="btn btn-info btnRodape" ng-click="adicionarCompra()">
+            Concluir compra
+        </button>
+        <button id="btnCancelarCompra" class="btn btn-danger" ng-click="LimparCompraConcluida()">
+            Cancelar compra
+        </button>
     </div>
 
 

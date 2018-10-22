@@ -10,7 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codigo" Type="int" />
+          <Property Name="codigo" Type="varchar" MaxLength="5" />
           <Property Name="idProduto" Type="int" />
           <Property Name="quantidade" Type="int" />
           <Property Name="dataVenda" Type="datetime" />
@@ -40,7 +40,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="Int32" />
+          <Property Name="codigo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="idProduto" Type="Int32" />
           <Property Name="quantidade" Type="Int32" />
           <Property Name="dataVenda" Type="DateTime" Precision="3" />

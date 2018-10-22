@@ -15,7 +15,7 @@ namespace CRUD_MVC_ANGULARJS.Models
     public partial class Compra
     {
         public int id { get; set; }
-        public Nullable<int> codigo { get; set; }
+        public string codigo { get; set; }
         public Nullable<int> idProduto { get; set; }
         public Nullable<int> quantidade { get; set; }
         public Nullable<System.DateTime> dataVenda { get; set; }

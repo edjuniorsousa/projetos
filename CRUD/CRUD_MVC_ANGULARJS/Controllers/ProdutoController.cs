@@ -48,6 +48,7 @@ namespace CRUD_MVC_ANGULARJS.Controllers
         {
             if (compra != null)
             {
+                compra.codigo = compra.codigo.GetHashCode().ToString().Substring(1,5);
                 using (var db = new ProdutosEntities())
                 {
                     db.Compras.Add(compra);
@@ -77,7 +78,7 @@ namespace CRUD_MVC_ANGULARJS.Controllers
                 {
                     produtoAtualizado.descricao = produto.descricao;
                     produtoAtualizado.quantidade = produto.quantidade;
-                    produtoAtualizado.dataCadastro = produto.dataCadastro;
+                    produtoAtualizado.dataCadastro = produtoAtualizado.dataCadastro;
                     produtoAtualizado.valor = produto.valor;
 
                     //salva alterações e retorna Json

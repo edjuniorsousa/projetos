@@ -10,6 +10,7 @@
     $scope.AtualizadoValor = "";
     $scope.AtualizadoQuantidade = "";
     $scope.quantidadeComprada = "";
+    $scope.AtualizadoDataCadastro = "";
     console.log($scope.Compras);
     //------------------------------------------------
 
@@ -34,10 +35,10 @@
     //Método responsavel por adicionar produto no carrinho de compras
 
     $scope.adicionarCarrinho = function (AtualizadoProdutoId,
-                                         AtualizadoDescricao, 
-                                         AtualizadoValor,
-                                         AtualizadoQuantidade,
-                                         quantidadeComprada) {
+        AtualizadoDescricao,
+        AtualizadoValor,
+        AtualizadoQuantidade,
+        quantidadeComprada) {
 
         var ValorTotal = (AtualizadoValor * quantidadeComprada)
         if (quantidadeComprada != 0 || quantidadeComprada != "") {
@@ -47,15 +48,17 @@
                     'AtualizadoDescricao': AtualizadoDescricao,
                     'AtualizadoValor': AtualizadoValor,
                     'quantidadeComprada': quantidadeComprada,
+                    'AtualizadoQuantidade': AtualizadoQuantidade,
                     'ValorTotal': ValorTotal
                 });
+                $scope.reset();
             }
             else {
                 alert("Quantidade comprada maior do que o estoque!");
                 $scope.reset();
             }
         }
-        $scope.reset();
+
     }
     $scope.reset = function () {
 
@@ -70,28 +73,93 @@
 
     //metodo adicionar compra
     $scope.adicionarCompra = function () {
+        var hash = new Date();
         angular.forEach($scope.Compras, function (value, key) {
+
             var compra = {
-                codigo:1,
+                codigo: hash,
                 idProduto: value.AtualizadoProdutoId,
                 quantidade: value.quantidadeComprada,
                 dataVenda: new Date(),
                 valorTotal: value.ValorTotal
             };
-            var adicionarInfos = produtoService.adicionarCompra(compra);
+            var adicionarInfosC = produtoService.adicionarCompra(compra);
 
-            adicionarInfos.then(function (d) {
-                if (d.data.success === true) {
-                    carregarProdutos();
-                    alert("Compra finalizada com sucesso!");
-                    $scope.Compras = "";
-                }
-                else { alert("Compra não finalizada com sucesso!"); }
+            adicionarInfosC.then(function (d) {
+                carregarProdutos();
+                //if (d.data.success === true) {    
+                //    carregarProdutos();
+                //    alert("Compra finalizada com sucesso!");
+                    
+
+                //}
+                //else { alert("Compra não finalizada com sucesso!"); }
             }, function () {
                 alert("Erro ocorrido ao tentar finalizar a compra!")
-            });
-        });        
+                });
+
+            //dados para atualizar estoque
+            var produto = {
+                produtoId: value.AtualizadoProdutoId,
+                descricao: value.AtualizadoDescricao,
+                quantidade: value.AtualizadoQuantidade - value.quantidadeComprada,
+                //dataCadastro: value.AtualizadoDataCadastro,
+                valor: value.AtualizadoValor
+            };
+            var atualizarInfosE = produtoService.atualizarProduto(produto);
+            atualizarInfosE.then(function (d) {
+                carregarProdutos();
+                //if (d.data.success === true) {
+                //    carregarProdutos();
+
+                //    alert("Estoque Atualizado com sucesso!");
+                //}
+                //else {
+                //    alert("Estoque não Atualizado");
+                //}
+            }, function () {
+                alert("Ocorreu um erro ao tentar atualizar o prosuto");
+                });
+            carregarProdutos();
+            alert("Compra finalizada com sucesso e estoque atualizado!");
+            $scope.Compras = [];
+        });    
+        
     }
+
+    $scope.LimparCompraConcluida = function () {
+        $scope.Compras = [];
+    }
+
+
+    //Método responsável por atualizar o estoque
+    //$scope.atualizarProdutoEstoque = function () {
+    //    var produto = {
+    //        produtoId: AtualizadoProdutoId,
+    //        descricao: AtualizadoDescricao,
+    //        quantidade: AtualizadoQuantidade - quantidadeComprada,
+    //        dataCadastro: $scope.AtualizadoDataCadastro,
+    //        valor: AtualizadoValor
+    //    };
+
+    //    var atualizarInfos = produtoService.atualizarProduto(produto);
+    //    atualizarInfos.then(function (d) {
+    //        if (d.data.success === true) {
+    //            carregarProdutos();
+
+    //            alert("Estoque Atualizado com sucesso!");
+    //            $scope.limparDadosAtualizados();
+    //        }
+    //        else {
+    //            alert("Estoque não Atualizado");
+    //        }
+    //    }, function () {
+    //        alert("Ocorreu um erro ao tentar atualizar o prosuto");
+    //    });
+
+    //}
+
+
 
 
 

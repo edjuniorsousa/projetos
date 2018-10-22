@@ -170,9 +170,9 @@
       <DependentUpon>ProdutoDB.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProdutoDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ProdutoDB.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\ProdutoDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -204,8 +204,8 @@
     </Content>
     <Content Include="Models\ProdutoDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ProdutoDB.edmx</DependentUpon>
       <LastGenOutput>ProdutoDB.cs</LastGenOutput>
+      <DependentUpon>ProdutoDB.edmx</DependentUpon>
     </Content>
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
