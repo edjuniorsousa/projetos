@@ -1,0 +1,28 @@
+﻿<div class="container" ng-controller="repositorioCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">Listagem de Repositórios Favoritos</div>
+        <table class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th style="display:none">Id</th>
+                    <th>Nome</th>
+                    <th style="display:none">Descrição</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in RepositoriosFavoritos">
+                    <td style="display:none">{{p.id}}</td>
+                    <td>{{p.name}}</td>
+                    <td style="display:none">{{p.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script src="~/AngularJSApp/Repositorio/Module.js"></script>
+    <script src="~/AngularJSApp/Repositorio/Service.js"></script>
+    <script src="~/AngularJSApp/Repositorio/Controller.js"></script>
+}
+

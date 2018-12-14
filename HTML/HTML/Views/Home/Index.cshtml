@@ -1,0 +1,74 @@
+﻿<div class="container" ng-controller="htmlCtrl">
+    <div class="panel panel-info">
+
+        <div class="jumbotron" style="background-color: blue;text-align:center;">
+            <h3 style="color:white;">Teste Inventione</h3>
+            <h1 style="color:white;">Edmilson De Sousa Lima Filho</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-4 col-lg-5 control-label" for="nome" style="text-align:right;">Nome</label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                        <input class="form-control" type="text" name="nome" ng-model="nome" placeholder="Informe o nome" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-4 col-lg-5 control-label" for="data" style="text-align:right;">Data</label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                        <input class="form-control" type="date" name="data" ng-model="data" placeholder="Informe a data" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:10px">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-4 col-lg-5 control-label" for="idade" style="text-align:right;">Idade</label>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                        <input class="form-control" type="number" name="idade" ng-model="idade" placeholder="Informe a idade" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="padding:10px">
+                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-5 control-label" for="nome" style="text-align:right;">Sexo</label>
+                <div class="form-group">
+                    <div class="radio col-xs-12 col-sm-8 col-md-8 col-lg-7">
+                        <label>
+                            <p><input type="radio" name="sexo" value="masc"> Masculino</p>
+                            <p><input type="radio" name="sexo" value="femi"> Feminino</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7" style="text-align:right;">
+                        <input type="checkbox" name="habilitarPainel" id="habilitarPainel" value="habilitarPainel" onchange="habilitar()">Habilitar Segundo Painel<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="content-painel" class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-12" style="text-align:center;">
+                        <textarea name="texto" cols="1000" rows="7" id="texto" ng-model="check" onkeypress="Limite()"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/AngularJSApp/Module.js"></script>
+    <script src="~/AngularJSApp/Service.js"></script>
+    <script src="~/AngularJSApp/Controller.js"></script>
+}

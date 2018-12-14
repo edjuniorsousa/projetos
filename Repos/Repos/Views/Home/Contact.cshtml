@@ -1,0 +1,47 @@
+﻿<div class="container" ng-controller="repositorioCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">Pesquisar Repositórios no GITHUB</div>
+        <div class="modal-body">
+            <div class="form-group">
+                <input class="form-control" type="text" name="nome" ng-model="pesquisaRepos" placeholder="Informe o nome do repositório" />
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="getPesquisaRepositorio()"><span class="glyphicon glyphicon-search"></button>
+        </div>
+
+        <table class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th style="display:none">Id</th>
+                    <th>Nome</th>
+                    <th style="display:none">Descrição</th>
+                    <th style="display:none">Linguagem</th>
+                    <th style="display:none">Ultima atualização</th>
+                    <th style="display:none">Dono</th>
+                    <th style="display:none">Contribuidor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in RepositoriosPesquisados">
+                    <td style="display:none">{{p.id}}</td>
+                    <td><a href="#" class="btn btn-info" data-target="#DetalharRepositorio" data-toggle="modal" ng-click="detalharRepositorioId(p)">{{p.name}}</a></td>
+                    <td style="display:none">{{p.description}}</td>
+                    <td style="display:none">{{p.language}}</td>
+                    <td style="display:none">{{p.updated_at | date: 'dd/MM/yyyy'}}</td>
+                    <td style="display:none">{{p.full_name_}}</td>
+                    <td style="display:none">{{p.contributors_url}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/AngularJSApp/Repositorio/Module.js"></script>
+    <script src="~/AngularJSApp/Repositorio/Service.js"></script>
+    <script src="~/AngularJSApp/Repositorio/Controller.js"></script>
+}
+
