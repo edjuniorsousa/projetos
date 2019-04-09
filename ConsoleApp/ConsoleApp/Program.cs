@@ -14,11 +14,11 @@ namespace ConsoleApp
             int cont = 0;
             int[] inteiros = { 3, 12, 7, 5, 9, 10, 23, 4, 34, 11 };
 
-            
-            Media(inteiros, soma, cont);
-            Invertido(inteiros);
+
+            ListaMedia(inteiros, soma, cont);
+            ListaInvertida(inteiros);
         }
-        static void Media(int[] inteiros, double soma, int contador)
+        static void ListaMedia(int[] inteiros, double soma, int contador)
         {
             foreach (var item in inteiros)
                 soma += item;
@@ -36,7 +36,7 @@ namespace ConsoleApp
             
 
         }
-        static void Invertido(int[] inteiros)
+        static void ListaInvertida(int[] inteiros)
         {
             Array.Reverse(inteiros, 0, inteiros.Length);
 
