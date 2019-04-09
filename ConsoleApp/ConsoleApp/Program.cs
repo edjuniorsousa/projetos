@@ -14,8 +14,9 @@ namespace ConsoleApp
             int cont = 0;
             int[] inteiros = { 3, 12, 7, 5, 9, 10, 23, 4, 34, 11 };
 
-            Invertido(inteiros);
+            
             Media(inteiros, soma, cont);
+            Invertido(inteiros);
         }
         static void Media(int[] inteiros, double soma, int contador)
         {
@@ -28,19 +29,20 @@ namespace ConsoleApp
                 if (i > soma / inteiros.Length)
                     contador++;
             }
-            Console.WriteLine("Metódo recursivo Média:");
+            Console.Write("Metódo recursivo Média: ");
             Console.WriteLine(soma / inteiros.Length);
-            Console.WriteLine("Número de elementos maiores do que a média:");
+            Console.Write("Número de elementos maiores do que a média: ");
             Console.WriteLine(contador);
-            Console.ReadLine();
+            
 
         }
         static void Invertido(int[] inteiros)
         {
             Array.Reverse(inteiros, 0, inteiros.Length);
 
-            Console.WriteLine("Invertido:");
-            inteiros.ToList().ForEach(Console.WriteLine);
+            Console.Write("Lista invertida: ");
+            Console.WriteLine("{0}", string.Join(", ", inteiros));
+            Console.ReadLine();
 
         }
     }
