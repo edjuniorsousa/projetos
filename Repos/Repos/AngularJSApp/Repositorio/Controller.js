@@ -19,7 +19,7 @@
 
         },
             function () {
-                alert("Aguarde as bases concluirem os carregamentos!")
+                alert("Aguarde as bases concluirem os carregamentos!!")
 
 
             });
@@ -35,7 +35,7 @@
 
         },
             function () {
-                alert("Aguarde as bases concluirem os carregamentos!")
+                alert("Aguarde as bases concluirem os carregamentos!!")
 
 
             });
