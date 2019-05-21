@@ -29,9 +29,9 @@ namespace ConsoleApp
                 if (i > soma / inteiros.Length)
                     contador++;
             }
-            Console.Write("Metódo recursivo Média: ");
+            Console.Write("Metódo recursivo Média ==> ");
             Console.WriteLine(soma / inteiros.Length);
-            Console.Write("Número de elementos maiores do que a média: ");
+            Console.Write("Número de elementos maiores do que a média ==> ");
             Console.WriteLine(contador);
             
 
@@ -40,7 +40,7 @@ namespace ConsoleApp
         {
             Array.Reverse(inteiros, 0, inteiros.Length);
 
-            Console.Write("Lista invertida: ");
+            Console.Write("Lista invertida ==> ");
             Console.WriteLine("{0}", string.Join(", ", inteiros));
             Console.ReadLine();
 

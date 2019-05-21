@@ -1,0 +1,108 @@
+﻿@model ProjetoDDD.MVC.Models.IntegrationModel.DDD.Models.Pessoa
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nome</dt>
+        <dd>@Html.DisplayFor(model => model.Nome)</dd>
+
+        <dt>Data de nascimento</dt>
+        <dd>@Html.DisplayFor(model => model.DataNascimento)</dd>
+
+        
+        <dt>Formacao</dt>
+        <dd>
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>Curso</th>
+                    <th>Status</th>
+                    <th>Data de conclusão</th>
+                </tr>
+                @foreach (var item in Model.Formacao)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Curso)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataConclusao)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dt>Experiência total</dt>
+        <dd>@Html.DisplayFor(model => model.ExperienciaTotal)</dd>
+
+        <dt>Experiencias</dt>
+        <dd>
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>Tecnologia</th>
+                    <th>TempoExperiencia</th>
+                    <th>Detalhes</th>
+                </tr>
+                @foreach (var item in Model.Experiencia)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tecnologia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TempoExperiencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DetalheExperiencia)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dt>Experiencia empresas</dt>
+        <dd>
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>Empresa</th>
+                    <th>Cargo</th>
+                    <th>Inicio</th>
+                    <th>Fim</th>
+                    <th>Detalhes</th>
+                </tr>
+                @foreach (var item in Model.ExperienciaEmpresas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Empresa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cargo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataInicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataFim)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DetalheExperiencia)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
