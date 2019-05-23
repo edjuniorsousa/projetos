@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BluData.MVC.Controllers
+namespace Fornecedores.Controllers
 {
     public class HomeController : Controller
     {

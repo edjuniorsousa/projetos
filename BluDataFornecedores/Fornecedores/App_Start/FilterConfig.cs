@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace BluData.MVC
+namespace Fornecedores
 {
     public class FilterConfig
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace BluData.MVC
+namespace Fornecedores
 {
     public class BundleConfig
     {

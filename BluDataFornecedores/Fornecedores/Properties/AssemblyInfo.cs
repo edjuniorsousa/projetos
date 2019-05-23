@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas através do seguinte
 // conjunto de atributos a seguir. Altere esses valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("BluData.MVC")]
+[assembly: AssemblyTitle("Fornecedores")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BluData.MVC")]
+[assembly: AssemblyProduct("Fornecedores")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // A GUID a seguir será referente à ID do typelib se este projeto for exposto ao COM
-[assembly: Guid("8b7b3d81-ee03-46ed-abaa-ec948d3c2449")]
+[assembly: Guid("22931fa8-572b-45f8-9dcc-b07a309b7b66")]
 
 // As informações de versão de um assembly consistem nos seguintes quatro valores:
 //
