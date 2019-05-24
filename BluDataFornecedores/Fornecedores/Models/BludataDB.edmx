@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BluDataDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeFantasia" Type="varchar" MaxLength="50" />
+          <Property Name="cnpj" Type="varchar" MaxLength="14" />
+          <Property Name="uf" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" />
+          <Property Name="cnpjOuCpf" Type="varchar" MaxLength="14" />
+          <Property Name="idEmpresa" Type="int" />
+          <Property Name="tipo" Type="varchar" MaxLength="2" />
+          <Property Name="dataCadastro" Type="datetime" />
+          <Property Name="telefone" Type="varchar" MaxLength="11" />
+          <Property Name="rg" Type="varchar" MaxLength="10" />
+          <Property Name="dataNasc" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Uf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uf" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <Association Name="FK_Empresa_Fornecedor">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fornecedor">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BluDataDBModelStoreContainer">
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uf" EntityType="Self.Uf" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Empresa_Fornecedor" Association="Self.FK_Empresa_Fornecedor">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Fornecedor" EntitySet="Fornecedor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BluDataDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeFantasia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fornecedors" Relationship="Self.FK_Empresa_Fornecedor" FromRole="Empresa" ToRole="Fornecedor" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cnpjOuCpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="idEmpresa" Type="Int32" />
+          <Property Name="tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="dataCadastro" Type="DateTime" Precision="3" />
+          <Property Name="telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="rg" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="dataNasc" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Empresa_Fornecedor" FromRole="Fornecedor" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Uf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uf1" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Empresa_Fornecedor">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fornecedor">
+              <PropertyRef Name="idEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BluDataDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresas" EntityType="Self.Empresa" />
+          <EntitySet Name="Fornecedors" EntityType="Self.Fornecedor" />
+          <EntitySet Name="Ufs" EntityType="Self.Uf" />
+          <AssociationSet Name="FK_Empresa_Fornecedor" Association="Self.FK_Empresa_Fornecedor">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="Fornecedor" EntitySet="Fornecedors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BluDataDBModelStoreContainer" CdmEntityContainer="BluDataDBEntities">
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="BluDataDBModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nomeFantasia" ColumnName="nomeFantasia" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fornecedors">
+            <EntityTypeMapping TypeName="BluDataDBModel.Fornecedor">
+              <MappingFragment StoreEntitySet="Fornecedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="cnpjOuCpf" ColumnName="cnpjOuCpf" />
+                <ScalarProperty Name="idEmpresa" ColumnName="idEmpresa" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="dataCadastro" ColumnName="dataCadastro" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="rg" ColumnName="rg" />
+                <ScalarProperty Name="dataNasc" ColumnName="dataNasc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ufs">
+            <EntityTypeMapping TypeName="BluDataDBModel.Uf">
+              <MappingFragment StoreEntitySet="Uf">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="uf1" ColumnName="uf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

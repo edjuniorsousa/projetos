@@ -1,7 +1,85 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<div class="container" ng-controller="fornecedorCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">Listagem de Empresas</div>
+        <div class="panel-body">
+            <button type="button" class="btn btn-info" data-target="#CadastrarEmpresa" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
 
-<p>Use this area to provide additional information.</p>
+
+        <table class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome Fantasia</th>
+                    <th>CNPJ</th>
+                    <th>UF</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="e in Empresas">
+                    <td>{{e.id}}</td>
+                    <td>{{e.nomeFantasia}}</td>
+                    <td>{{e.cnpj}}</td>
+                    <td>{{e.uf}}</td>
+                    <td style="width:300px">
+                        <a href="#" class="btn btn-info" data-target="#AtualizarProduto" data-toggle="modal" ng-click="atualizarProdutoPorId(p)">Editar</a>
+                        <a href="#" class="btn btn-danger" data-target="#ExcluirProduto" data-toggle="modal" ng-click="excluirProdutoPorId(p)">Excluir</a>
+                        <a href="#" class="btn btn-danger" data-target="#ComprarProduto" data-toggle="modal" ng-click="comprarProdutoPorId(p)">Comprar</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+    @* INÍCIO MODAL - CADASTRAR EMPRESA *@
+    <div class="modal" id="CadastrarEmpresa" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Cadastrar Empresa</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="CadastrarNovaEmpresaForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" name="id" type="hidden" placeholder="Id empresa" />
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="nomeFantasia" ng-model="nomeFantasia" placeholder="Nome fantasia" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="cnpj" ng-model="cnpj" placeholder="CNPJ" />
+                        </div>
+
+                        <div class="form-group">
+                            <select ng-model="uf">
+                                <option value="">Selecione UF</option>
+                                <option ng-repeat="u in Ufs" value="{{ u.uf1 }}">{{ u.uf1 }}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-click="cadastrarEmpresa()">Cadastrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* FIM MODAL - ADICIONAR PRODUTO *@
+
+
+</div>
+@section scripts{
+    <script src="~/AngularJSApp/Fornecedor/Module.js"></script>
+    <script src="~/AngularJSApp/Fornecedor/Service.js"></script>
+    <script src="~/AngularJSApp/Fornecedor/Controller.js"></script>
+}
+
