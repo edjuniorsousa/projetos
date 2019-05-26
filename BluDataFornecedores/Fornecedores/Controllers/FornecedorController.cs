@@ -41,5 +41,72 @@ namespace Fornecedores.Controllers
             }
 
         }
+        #region Método para cadastrar fornecedor - CREATE
+        //POST Fornecedor/CadastrarEmpresa
+        [HttpPost]
+        public JsonResult CadastrarFornecedor(Fornecedor fornecedor)
+        {
+
+            if (fornecedor != null)
+            {
+                if (fornecedor.nome != null && fornecedor.idEmpresa != null && fornecedor.telefone != null && fornecedor.tipo != null)
+                {
+                    //Pessoa jurídica
+                    if (fornecedor.cnpjOuCpf != null)
+                    {
+                        if (fornecedor.tipo == "PJ" && fornecedor.cnpjOuCpf.Length > 11)
+                        {
+                            if (!Fornecedores.Validacoes.Cnpj.ValidaCnpj(fornecedor.cnpjOuCpf))
+                            {
+
+                                throw new Exception("Por favor, informe um CNPJ válido!");
+                            }
+                            else
+                            {
+                                using (var db = new BluDataDBEntities())
+                                {
+                                    db.Fornecedors.Add(fornecedor);
+                                    db.SaveChanges();
+
+                                    return Json(new { success = true });
+                                }
+
+                            }
+                        }
+                    }
+                    //Pessoa física
+                    if (fornecedor.cnpjOuCpf != null && fornecedor.rg != null && fornecedor.dataNasc != null)
+                    {
+                        if (fornecedor.tipo == "PF" && fornecedor.cnpjOuCpf.Length <= 11)
+                        {
+                            if (!Fornecedores.Validacoes.Cpf.ValidaCpf(fornecedor.cnpjOuCpf))
+                            {
+
+                                throw new Exception("Por favor, informe um CPF válido!");
+                            }
+                            else
+                            {
+                                using (var db = new BluDataDBEntities())
+                                {
+                                    db.Fornecedors.Add(fornecedor);
+                                    db.SaveChanges();
+
+                                    return Json(new { success = true });
+                                }
+
+                            }
+
+
+                        }
+                    }
+                }
+
+            }
+            return Json(new { success = false });
+
+
+
+        }
+        #endregion
     }
 }

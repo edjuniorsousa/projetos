@@ -66,5 +66,29 @@ namespace Fornecedores.Controllers
             return Json(new { success = false });
         }
         #endregion
+        #region Método para editar empresa - UPDATE
+        [HttpPost]
+        public JsonResult EditarEmpresa(Empresa empresa)
+        {
+            using (var db = new BluDataDBEntities())
+            {
+                var empresaEdit = db.Empresas.Find(empresa.id);
+                if (empresaEdit == null)
+                {
+                    //retorna msg se o id nao existir
+                    return Json(new { success = false });
+                }
+                else
+                {
+                    empresaEdit.nomeFantasia = empresa.nomeFantasia;
+                    empresaEdit.uf = empresa.uf;
+
+                    //salva alterações e retorna Json
+                    db.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+        }
+        #endregion
     }
 }

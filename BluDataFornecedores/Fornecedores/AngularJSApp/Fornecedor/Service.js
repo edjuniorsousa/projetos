@@ -23,4 +23,25 @@
         });
         return request;
     }
+
+    //Método responsável por editar empresa pelo id: UPDATE
+    this.atualizarEmpresa = function (empresa) {
+        var request = $http({
+            method: 'post',
+            url: '/Empresa/EditarEmpresa',
+            data: empresa
+        });
+        return request;
+    }
+
+    //Metodo responsável por cadastrar fornecedor: CREATE
+    this.cadastrarFornecedor = function (fornecedor) {
+        var request = $http({
+            method: 'post',
+            url: '/Fornecedor/CadastrarFornecedor',
+            data: fornecedor
+        });
+        return request;
+    }
+    
 });

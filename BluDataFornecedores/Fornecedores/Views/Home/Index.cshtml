@@ -2,7 +2,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">Listagem de Fornecedores</div>
         <div class="panel-body">
-            <button type="button" class="btn btn-info" data-target="#AdicionarFornecedor" data-toggle="modal">
+            <button type="button" class="btn btn-info" data-target="#CadastrarFornecedor" data-toggle="modal">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
         </div>
@@ -12,10 +12,10 @@
             <thead style="background-color: burlywood;">
                 <tr>
                     <th>Id</th>
-                    <th>Tipo</th>
                     <th>Nome</th>
                     <th>Empresa/Cliente</th>
                     <th>CPF/CNPJ</th>
+                    <th>Tipo</th>
                     <th>Data Cadastro</th>
                     <th>Telefone</th>
                     <th>Data Nasc</th>
@@ -26,18 +26,16 @@
             <tbody>
                 <tr ng-repeat="f in Fornecedores">
                     <td>{{f.id}}</td>
-                    <td>{{f.tipo}}</td>
                     <td>{{f.nome}}</td>
                     <td>{{f.nomeFantasia}}</td>
                     <td>{{f.cnpjOuCpf}}</td>
-                    <td>{{f.dataCadastro | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{f.tipo}}</td>
+                    <td>{{f.dataCadastro}}</td>
                     <td>{{f.telefone}}</td>
                     <td>{{f.dataNasc | date: 'dd/MM/yyyy'}}</td>
                     <td>{{f.rg}}</td>
-                    <td style="width:300px">
-                        <a href="#" class="btn btn-info" data-target="#AtualizarProduto" data-toggle="modal" ng-click="atualizarProdutoPorId(p)">Editar</a>
-                        <a href="#" class="btn btn-danger" data-target="#ExcluirProduto" data-toggle="modal" ng-click="excluirProdutoPorId(p)">Excluir</a>
-                        <a href="#" class="btn btn-danger" data-target="#ComprarProduto" data-toggle="modal" ng-click="comprarProdutoPorId(p)">Comprar</a>
+                    <td style="width:100px">
+                        <a href="#" class="btn btn-info" data-target="#AtualizarFornecedor" data-toggle="modal" ng-click="atualizarFornecedorPorId(p)">Editar</a>
 
                     </td>
                 </tr>
@@ -47,6 +45,66 @@
 
 
     </div>
+    @* INÍCIO MODAL - CADASTRAR FORNECEDOR *@
+    <div class="modal" id="CadastrarFornecedor" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Cadastrar Fornecedpor</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="CadastrarNovoFornecedorForm">
+                        <div class="form-group">
+                            <input class="form-control" readonly="readonly" name="id" type="hidden" placeholder="Id fornecedor" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="text-info"> Nome</label>
+                            <input class="form-control" type="text" name="nome" ng-model="nome" placeholder="Nome" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info">Empresa/Cliente</label>
+                            <select ng-model="nomeFantasia" class="form-control">
+                                <option value="">Selecione...</option>
+                                <option ng-repeat="e in Empresas" value="{{ e.id }}">{{ e.nomeFantasia }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info">Telefone</label>
+                            <input class="form-control" type="number" name="telefone" ng-model="telefone" placeholder="Telefone" />
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info">Tipo</label>
+
+                            <input type="radio" ng-model="tipo" value="PJ" ng-click="MostrarCamposPJ('J')">PJ
+                            <input type="radio" ng-model="tipo" value="PF" ng-click="MostrarCamposPF('F')">PF
+                        </div>
+                            <div class="form-group" ng-show="IsVisiblePj">
+                                <label class="text-info">CNPJ</label>
+                                <input class="form-control" type="number" name="cnpj" ng-model="cpfCnpj" placeholder="CNPJ" />
+                            </div>
+                            <div class="form-group" ng-show="IsVisiblePf">
+                                <label class="text-info">CPF</label>
+                                <input class="form-control" type="number" name="cpf" ng-model="cpfCnpj" placeholder="CPF" />
+                            </div>
+                            <div class="form-group" ng-show="IsVisiblePf">
+                                <label class="text-info">RG</label>
+                                <input class="form-control" type="number" name="rg" ng-model="rg" placeholder="RG" />
+                            </div>
+                            <div class="form-group" ng-show="IsVisiblePf">
+                                <label class="text-info">Data Nascimento</label>
+                                <input class="form-control" type="date" name="dtNasc" ng-model="dataNasc" placeholder="Data Nascimento" />
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-click="cadastrarFornecedor()">Cadastrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDadosFornecedor()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* FIM MODAL - ADICIONAR FORNECEDOR *@
 </div>
 @section scripts{
     <script src="~/AngularJSApp/Fornecedor/Module.js"></script>
