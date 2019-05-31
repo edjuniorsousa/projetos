@@ -10,15 +10,6 @@
     var local = [];
     var data = new Date();
 
-
-    //testando se o formulário é valido
-    //if (!$scope.CadastrarNovoFornecedorForm.$valid) {
-
-    //    alert('Por favor, preencha os campos: Nome, Empresa, tipo');
-    //}
-
-
-
     //Tratamento para o parametro dataCadastro e dataNasc
     $scope.replaceString = function (data) {
         return data.replace('/Date(', '').replace(')/', '');
@@ -276,6 +267,32 @@
             $scope.telefone = '',
             $scope.rg = '',
             $scope.dataNasc = '';
+    }
+
+    //Método responsavel por resgatar os dados do fornecedor pelo Id para exclusão:
+
+    $scope.excluirFornecedorPorId = function (fornecedor) {
+        $scope.AtualizadoFornecedorId = fornecedor.id;
+        $scope.AtualizadoFornecedorNome = fornecedor.nome;
+        $scope.AtualizadoCpfCnpj = fornecedor.cnpjOuCpf;
+        $scope.AtualizadoNomeFantasia = fornecedor.nomeFantasia;
+    }
+
+    //Método responsável por excluir o fornecedor pelo Id:
+    $scope.excluirFornecedor = function (fornecedorId) {
+
+        var excluirInfos = fornecedorService.excluirFornecedor(fornecedorId);
+        excluirInfos.then(function (d) {
+
+            if (d.data.success === true) {
+                carregarFornecedores();
+
+                alert("Fornecedor excluído com Sucesso!");
+            }
+            else {
+                alert("Fornecedor não excluído!");
+            }
+        });
     }
 
     

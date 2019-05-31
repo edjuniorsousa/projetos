@@ -48,15 +48,17 @@ namespace Fornecedores.Controllers
         public JsonResult CadastrarFornecedor(Fornecedor fornecedor)
         {
 
+
+
+
             if (fornecedor != null)
             {
                 BluDataDBEntities entity = new BluDataDBEntities();
-                Fornecedor forn = entity.Fornecedors.FirstOrDefault(x => x.cnpjOuCpf == fornecedor.cnpjOuCpf);
+                Fornecedor forn = entity.Fornecedors.FirstOrDefault(x => x.cnpjOuCpf == fornecedor.cnpjOuCpf && x.idEmpresa == fornecedor.idEmpresa);
                 if (forn != null)
                 {
-                    TempData["mensagemErro"] = "Já existe um fornecedor cadastrado com este CPF/CNPJ, " + forn.nome;
-                    //return RedirectToAction("Index", "Home");
-                    //throw new System.Exception("Já existe um fornecedor cadastrado com este CPF/CNPJ, " + forn.nome);
+                    throw new System.Exception("Já existe um fornecedor cadastrado com este CPF/CNPJ para a mesma Empresa/Cliente, " + forn.nome);
+
                 }
                 else
                 {
@@ -71,6 +73,7 @@ namespace Fornecedores.Controllers
                                 {
 
                                     throw new Exception("Por favor, informe um CNPJ válido!");
+
                                 }
                                 else
                                 {
@@ -94,13 +97,10 @@ namespace Fornecedores.Controllers
                                 {
 
                                     throw new Exception("Por favor, informe um CPF válido!");
+
                                 }
                                 else
                                 {
-
-
-
-
                                     using (var db = new BluDataDBEntities())
                                     {
                                         var estado = db.Empresas.Where(e => e.id == fornecedor.idEmpresa)
@@ -135,6 +135,27 @@ namespace Fornecedores.Controllers
 
 
 
+        }
+        #endregion
+
+        #region Método para Excluir fornecedor - DELETE
+
+        [HttpPost]
+        public JsonResult ExcluirFornecedor(int id)
+        {
+            using (var db = new BluDataDBEntities())
+            {
+                var fornecedor = db.Fornecedors.Find(id);
+                if (fornecedor == null)
+                {
+                    return Json(new { success = false });
+                }
+
+                db.Fornecedors.Remove(fornecedor);
+                db.SaveChanges();
+
+                return Json(new { success = true });
+            }
         }
         #endregion
 

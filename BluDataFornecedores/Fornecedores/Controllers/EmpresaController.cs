@@ -43,25 +43,37 @@ namespace Fornecedores.Controllers
         [HttpPost]
         public JsonResult CadastrarEmpresa(Empresa empresa)
         {
-
-            if (empresa.nomeFantasia != null && empresa.uf != null && empresa.cnpj != null)
+            if (empresa != null)
             {
-                if (!Fornecedores.Validacoes.Cnpj.ValidaCnpj(empresa.cnpj))
+                BluDataDBEntities entity = new BluDataDBEntities();
+                Empresa emp = entity.Empresas.FirstOrDefault(x => x.cnpj == empresa.cnpj);
+                if (emp != null)
                 {
-                    
-                    throw new Exception("Por favor, informe um CNPJ válido!");
+                    throw new System.Exception("Já existe uma empresa cadastrada com este CNPJ, " + empresa.nomeFantasia);
                 }
                 else
                 {
-                    using (var db = new BluDataDBEntities()) 
+                    if (empresa.nomeFantasia != null && empresa.uf != null && empresa.cnpj != null)
                     {
-                        db.Empresas.Add(empresa);
-                        db.SaveChanges();
+                        if (!Fornecedores.Validacoes.Cnpj.ValidaCnpj(empresa.cnpj))
+                        {
 
-                        return Json(new { success = true });
+                            throw new Exception("Por favor, informe um CNPJ válido!");
+                        }
+                        else
+                        {
+                            using (var db = new BluDataDBEntities())
+                            {
+                                db.Empresas.Add(empresa);
+                                db.SaveChanges();
+
+                                return Json(new { success = true });
+                            }
+                        }
+
                     }
+
                 }
-                
             }
             return Json(new { success = false });
         }

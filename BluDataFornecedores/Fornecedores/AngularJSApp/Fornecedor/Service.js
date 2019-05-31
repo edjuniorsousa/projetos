@@ -54,5 +54,10 @@
         return request;
 
     }
+    //Método responsável por Excluir fornecedor Por Id: Delete
+    this.excluirFornecedor = function (fornecedorId) {
+
+        return $http.post('/Fornecedor/ExcluirFornecedor/' + fornecedorId);
+    }
     
 });

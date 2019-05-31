@@ -12,12 +12,6 @@
 
 <script>
 
-    jQuery(function ($) {
-        //$('#dtCadastro').keyup(function () {
-        //    $(this).val(this.value.replace(/\D/g, ''));
-        //});
-    });
-
     function keypressed(obj, e) {
         var tecla = (window.event) ? e.keyCode : e.which;
         var texto = document.getElementById("dtCadastro").value
@@ -29,9 +23,7 @@
             return false;
         //if (tecla == 47) { if (indexBar !== -1) { return false } }
     }
-
-
-
+    
     //filtrando por data
     function filterDataFunction()
     {
@@ -60,14 +52,6 @@
     }
 </script>
 
-@if(TempData["mensagemErro"] != null)
-{
-<div class="field-error" >
-@TempData["mensagemErro"]
-</div>
-}
-
-
 <div class="container" ng-controller="fornecedorCtrl">
     <div class="panel panel-info">
         <div class="panel-heading">Listagem de Fornecedores</div>
@@ -91,12 +75,12 @@
                                 </th>
                                 <th>
                                     <label class="text-info">CPF/CNPJ</label>
-                                    <input class="form-control" type="text" id="cpfCnpj"  name="cpfCnpj" ng-model="campo.cnpjOuCpf" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo encontrado ')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                                    <input class="form-control" type="text" id="cpfCnpj" name="cpfCnpj" ng-model="campo.cnpjOuCpf" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo encontrado ')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
                                 </th>
                                 <th>
                                     <label class="text-info">Data Cadastro</label>
                                     <input class="form-control" type="text" id="dtCadastro" name="dtCadastro" onkeyup="filterDataFunction()" placeholder="Ex.: dd/mm/aaaa" onkeypress="return keypressed( this , event );">
-                                    
+
                                 </th>
                             </tr>
                         </tbody>
@@ -104,34 +88,39 @@
                 </div>
             </form>
         </div>
-            <table id="myTable" class="table table-bordered">
-                <thead style="background-color: burlywood;">
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Empresa/Cliente</th>
-                        <th>CPF/CNPJ</th>
-                        <th>Tipo</th>
-                        <th>Data Cadastro</th>
-                        <th>Telefone</th>
-                        <th>Data Nasc</th>
-                        <th style="width:150px">RG</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="f in Fornecedores | filter:campo">
-                        <td>{{f.id}}</td>
-                        <td>{{f.nome}}</td>
-                        <td>{{f.nomeFantasia}}</td>
-                        <td>{{f.cnpjOuCpf}}</td>
-                        <td>{{f.tipo}}</td>
-                        <td>{{replaceString(f.dataCadastro)| date: 'dd/MM/yyyy hh:mm:ss' }}</td>
-                        <td>{{f.telefone}}</td>
-                        <td>{{replaceString((f.dataNasc==null) && '-' || f.dataNasc) | date: 'dd/MM/yyyy'}}</td>
-                        <td>{{f.rg}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <table id="myTable" class="table table-bordered">
+            <thead style="background-color: burlywood;">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Empresa/Cliente</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Tipo</th>
+                    <th>Data Cadastro</th>
+                    <th>Telefone</th>
+                    <th>Data Nasc</th>
+                    <th style="width:150px">RG</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="f in Fornecedores | filter:campo">
+                    <td>{{f.id}}</td>
+                    <td>{{f.nome}}</td>
+                    <td>{{f.nomeFantasia}}</td>
+                    <td>{{f.cnpjOuCpf}}</td>
+                    <td>{{f.tipo}}</td>
+                    <td>{{replaceString(f.dataCadastro)| date: 'dd/MM/yyyy hh:mm:ss' }}</td>
+                    <td>{{f.telefone}}</td>
+                    <td>{{replaceString((f.dataNasc==null) && '-' || f.dataNasc) | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{f.rg}}</td>
+                    <td>
+                        <a href="#" class="btn btn-danger" data-target="#ExcluiFornecedor" data-toggle="modal" ng-click="excluirFornecedorPorId(f)">Excluir</a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
 
 
@@ -155,14 +144,14 @@
                         </div>
                         <div class="form-group">
                             <label class="text-info">Empresa/Cliente</label>
-                            <select ng-model="nomeFantasia" class="form-control" >
+                            <select ng-model="nomeFantasia" class="form-control">
                                 <option value="">Selecione...</option>
                                 <option ng-repeat="e in Empresas" value="{{ e.id }}">{{ e.nomeFantasia }}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="text-info">Telefone</label>
-                            <input class="form-control" type="number" name="telefone" ng-model="telefone" placeholder="Somente números" onkeyup="if(this.value.length>11){this.value=this.value.substring(0,11);alert('Tamanho maximo para Telefone encontrado!')}"/>
+                            <input class="form-control" type="number" name="telefone" ng-model="telefone" placeholder="Somente números" onkeyup="if(this.value.length>11){this.value=this.value.substring(0,11);alert('Tamanho maximo para Telefone encontrado!')}" />
                         </div>
                         <div class="form-group">
                             <label class="text-info">Tipo</label>
@@ -172,20 +161,20 @@
                         </div>
                         <div class="form-group" ng-show="IsVisiblePj">
                             <label class="text-info">CNPJ</label>
-                            <input class="form-control" type="number" name="cnpj" ng-model="cpfCnpj" placeholder="Somente números"  onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo para CNPJ encontrado!')}"/>
+                            <input class="form-control" type="text" name="cnpj" ng-model="cpfCnpj" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo para CNPJ encontrado!')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
                         </div>
                         <div class="form-group" ng-show="IsVisiblePf">
                             <label class="text-info">CPF</label>
-                            <input class="form-control" type="number" name="cpf" ng-model="cpfCnpj" placeholder="Somente números"  onkeyup="if(this.value.length>11){this.value=this.value.substring(0,11);alert('Tamanho maximo para CPF encontrado!')}"/>
+                            <input class="form-control" type="text" name="cpf" ng-model="cpfCnpj" placeholder="Somente números" onkeyup="if(this.value.length>11){this.value=this.value.substring(0,11);alert('Tamanho maximo para CPF encontrado!')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
                         </div>
                         <div class="form-group" ng-show="IsVisiblePf">
                             <label class="text-info">RG</label>
-                            <input class="form-control" type="number" name="rg" ng-model="rg" placeholder="Somente números" onkeyup="if(this.value.length>9){this.value=this.value.substring(0,9);alert('Tamanho maximo para RG encontrado!')}" />
+                            <input class="form-control" type="text" name="rg" ng-model="rg" placeholder="Somente números" onkeyup="if(this.value.length>9){this.value=this.value.substring(0,9);alert('Tamanho maximo para RG encontrado!')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
                         </div>
                         <div class="form-group" ng-show="IsVisiblePf">
                             <label class="text-info">Data Nascimento</label>
                             <input class="form-control" type="date" name="dtNasc" ng-model="dataNasc" placeholder="Data Nascimento" />
-                            
+
                         </div>
                     </form>
                 </div>
@@ -197,6 +186,31 @@
         </div>
     </div>
     @* FIM MODAL - ADICIONAR FORNECEDOR *@
+
+    @* INÍCIO MODAL - EXCLUIR FORNECEDOR *@
+
+    <div class="modal" role="dialog" id="ExcluiFornecedor">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Você tem certeza que deseja excluir o fornecedor para a Empresa/Cliente: {{AtualizadoNomeFantasia }}?</h3>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <p>Id do fornecedor : {{AtualizadoFornecedorId}}</p>
+                        <p>Nome : {{AtualizadoFornecedorNome}}</p>
+                        <p>CPF/CNPJ : {{AtualizadoCpfCnpj}}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="excluirFornecedor(AtualizadoFornecedorId)">Excluir</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* FIM MODAL - EXCLUIR FORNECEDOR *@
 </div>
 
 @section scripts{

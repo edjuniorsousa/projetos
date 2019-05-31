@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label class="text-info">CNPJ</label>
-                            <input class="form-control" type="number" name="cnpj" ng-model="cnpj" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo para CNPJ encontrado!')}"/>
+                            <input class="form-control" type="text" name="cnpj" ng-model="cnpj" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo para CNPJ encontrado!')}" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
                         </div>
 
                         <div class="form-group">
