@@ -3,5 +3,5 @@
 
 (function () {
     FornecedorApp = angular.module('fornecedores', []);
-    //EmpresaApp = angular.module('empresas', []);
+    //EmApp = angular.module('empresas', []);
 })();

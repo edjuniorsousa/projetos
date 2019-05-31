@@ -43,5 +43,16 @@
         });
         return request;
     }
+
+    //Serviço resposável por pesquisar fornecedores
+    this.pesquisaFornecedores = function (fornecedor) {
+        var request = $http({
+            method: 'post',
+            url: '/Fornecedor/PesquisaFornecedor',
+            data: fornecedor
+        });
+        return request;
+
+    }
     
 });

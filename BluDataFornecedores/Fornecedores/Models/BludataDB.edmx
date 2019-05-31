@@ -23,7 +23,7 @@
           <Property Name="cnpjOuCpf" Type="varchar" MaxLength="14" />
           <Property Name="idEmpresa" Type="int" />
           <Property Name="tipo" Type="varchar" MaxLength="2" />
-          <Property Name="dataCadastro" Type="datetime" />
+          <Property Name="dataCadastro" Type="smalldatetime" />
           <Property Name="telefone" Type="varchar" MaxLength="11" />
           <Property Name="rg" Type="varchar" MaxLength="10" />
           <Property Name="dataNasc" Type="datetime" />
@@ -80,7 +80,7 @@
           <Property Name="cnpjOuCpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="idEmpresa" Type="Int32" />
           <Property Name="tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="dataCadastro" Type="DateTime" Precision="3" />
+          <Property Name="dataCadastro" Type="DateTime" Precision="0" />
           <Property Name="telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="rg" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="dataNasc" Type="DateTime" Precision="3" />

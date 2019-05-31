@@ -11,36 +11,19 @@ namespace Fornecedores.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Empresa
     {
         public Empresa()
         {
             this.Fornecedors = new HashSet<Fornecedor>();
         }
-
+    
         public int id { get; set; }
         public string nomeFantasia { get; set; }
         public string cnpj { get; set; }
-
-        public string _cnpj
-        {
-            get
-            {
-                return cnpj;
-            }
-            set
-            {
-                if (!Fornecedores.Validacoes.Cnpj.ValidaCnpj(cnpj))
-                {
-                    throw new Exception("Por favor, informe um CNPJ válido!");
-                }
-                cnpj = value;
-            }
-        }
-
         public string uf { get; set; }
-
+    
         public virtual ICollection<Fornecedor> Fornecedors { get; set; }
     }
 }

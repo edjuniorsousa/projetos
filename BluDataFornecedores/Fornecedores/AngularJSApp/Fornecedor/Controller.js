@@ -1,4 +1,4 @@
-﻿FornecedorApp.controller('fornecedorCtrl', function ($scope,fornecedorService) {
+﻿FornecedorApp.controller('fornecedorCtrl', function ($scope, fornecedorService) {
     //aqui estamos carregando tds os dados gravados qnd a pagina for carregada
     carregarFornecedores();
     carregarEmpresas();
@@ -6,6 +6,28 @@
     //Manter campos invisivéis
     $scope.IsVisiblePf = false;
     $scope.IsVisiblePj = false;
+    $scope.IsVisible = false;
+    var local = [];
+    var data = new Date();
+
+
+    //testando se o formulário é valido
+    //if (!$scope.CadastrarNovoFornecedorForm.$valid) {
+
+    //    alert('Por favor, preencha os campos: Nome, Empresa, tipo');
+    //}
+
+
+
+    //Tratamento para o parametro dataCadastro e dataNasc
+    $scope.replaceString = function (data) {
+        return data.replace('/Date(', '').replace(')/', '');
+    }
+
+    //Mostrar campos de pesquisa
+    $scope.MostrarCampos = function (value) {
+        $scope.IsVisible = value == "P";
+    }
 
     //Mostrar campos de pessoa física
     $scope.MostrarCamposPF = function (value) {
@@ -46,6 +68,13 @@
 
             //se der tudo certo
             $scope.Fornecedores = d.data;
+            
+
+            angular.forEach($scope.Fornecedores, function (value, key) {
+                value.dataCadastro = $filter('date')(value.dataCadastro.replace('/Date(', '').replace(')/', ''), "dd/MM/yyyy hh:mm a");
+
+            });
+
 
 
         },
@@ -55,6 +84,10 @@
 
             });
     }
+
+   
+
+
 
 
     //Carregar lista de empresa
@@ -86,7 +119,6 @@
             cnpj: $scope.cnpj,
             uf: $scope.uf
         };
-
             var adicionarInfos = fornecedorService.cadastrarEmpresa(empresa);
 
             adicionarInfos.then(function (d) {
@@ -102,7 +134,7 @@
                 }
             },
                 function () {
-                    alert("Verificar os dados, por favor, informe um CNPJ válido!!")
+                    alert("Favor verificar se os dados estão corretos!!")
                     $scope.limparDados();
                 });
         
@@ -166,26 +198,73 @@
             dataNasc: $scope.dataNasc
 
         };
+        
+        var pessoa = $scope.tipo;
+        var ano = data.getFullYear();
+        angular.forEach($scope.Empresas, function (value, key) {
+            if (value.uf === "PR" & value.id === parseInt($scope.nomeFantasia)) 
+                local = value.uf;
+            
+        });
+        
+
 
         var adicionarInfos = fornecedorService.cadastrarFornecedor(fornecedor);
+        if (pessoa === 'PF') {
+            if (ano - $scope.dataNasc.getFullYear() < 18 && local === 'PR') {
 
-        adicionarInfos.then(function (d) {
-            if (d.data.success === true) {
+                
+                alert("Não é permitido cadastrar fornecedor(PF) menor de idade para empresas do estado do PR!");
+                local = '';
                 carregarFornecedores();
-                alert("Fornecedor cadastrado com sucesso!");
-
                 $scope.limparDadosFornecedor();
+
             }
             else {
-                alert("Fornecedor não cadastrado!");
-                $scope.limparDadosFornecedor();
-            }
-        },
-            function () {
-                alert("Verificar os dados, por favor, informe um CNPJ ou CPF válido!!")
-                $scope.limparDadosFornecedor();
-            });
 
+                adicionarInfos.then(function (d) {
+
+
+                    if (d.data.success === true) {
+                        carregarFornecedores();
+                        alert("Fornecedor cadastrado com sucesso!");
+
+                        $scope.limparDadosFornecedor();
+                    }
+                    else {
+                        alert("Fornecedor não cadastrado!");
+                        $scope.limparDadosFornecedor();
+                    }
+
+                },
+                    function () {
+                        alert("Favor verificar se os dados estão corretos!!")
+                        $scope.limparDadosFornecedor();
+                    });
+            }
+        }
+        else {
+            adicionarInfos.then(function (d) {
+
+
+                if (d.data.success === true) {
+                    carregarFornecedores();
+                    alert("Fornecedor cadastrado com sucesso!");
+
+                    $scope.limparDadosFornecedor();
+                }
+                else {
+                    alert("Fornecedor não cadastrado!");
+                    $scope.limparDadosFornecedor();
+                }
+
+            },
+                function () {
+                    alert("Favor verificar se os dados estão corretos!!")
+                    $scope.limparDadosFornecedor();
+                });
+
+        }
     }
     //Limpar dados fornecedor
     $scope.limparDadosFornecedor = function () {
@@ -201,5 +280,12 @@
 
     
 
+    
+
 
 });
+
+
+
+
+

@@ -24,7 +24,7 @@
                     <td>{{e.nomeFantasia}}</td>
                     <td>{{e.cnpj}}</td>
                     <td>{{e.uf}}</td>
-                    <td style="width:300px">
+                    <td style="width:50px">
                         <a href="#" class="btn btn-info" data-target="#AtualizarEmpresa" data-toggle="modal" ng-click="atualizarEmpresaPorId(e)">Editar</a>
 
                     </td>
@@ -44,18 +44,18 @@
                     <h3 class="text-info">Cadastrar Empresa</h3>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" name="CadastrarNovaEmpresaForm">
+                    <form name="CadastrarNovaEmpresaForm">
                         <div class="form-group">
                             <input class="form-control" readonly="readonly" name="id" type="hidden" placeholder="Id empresa" />
                         </div>
 
                         <div class="form-group">
                             <label class="text-info"> Nome fantasia</label>
-                            <input class="form-control" type="text" name="nomeFantasia" ng-model="nomeFantasia" placeholder="Nome fantasia" />
+                            <input class="form-control" type="text" name="nomeFantasia" ng-model="nomeFantasia" placeholder="Nome fantasia" onkeyup="if(this.value.length>50){this.value=this.value.substring(0,50);alert('Tamanho maximo encontrado!')}"/>
                         </div>
                         <div class="form-group">
                             <label class="text-info">CNPJ</label>
-                            <input class="form-control" type="number" name="cnpj" ng-model="cnpj" placeholder="CNPJ" />
+                            <input class="form-control" type="number" name="cnpj" ng-model="cnpj" placeholder="Somente números" onkeyup="if(this.value.length>14){this.value=this.value.substring(0,14);alert('Tamanho maximo para CNPJ encontrado!')}"/>
                         </div>
 
                         <div class="form-group">
