@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Fornecedores.MVC.ViewModels.EmpresaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Empresas</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar Nova Empresa", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeFantasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.uf)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeFantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cnpj)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.uf)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+        </td>
+    </tr>
+}
+
+</table>
